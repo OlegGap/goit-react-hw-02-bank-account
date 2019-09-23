@@ -1,12 +1,11 @@
 import React from 'react';
 import './styles.css';
-import Reader from './components/Reader/Reader';
-import publications from './components/Reader/publications.json';
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
     <>
-      <Reader items={publications} />
+      <Dashboard />
     </>
   );
 }

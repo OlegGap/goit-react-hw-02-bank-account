@@ -2,16 +2,19 @@
   "name": "goit-react-hw-02-reader",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://oleggap.github.io/goit-react-hw-02-reader/",
+  "homepage": "https://oleggap.github.io/goit-react-hw-02-bank-account/",
   "dependencies": {
     "@emotion/core": "^10.0.17",
     "@emotion/styled": "^10.0.17",
     "emotion": "^10.0.17",
     "gh-pages": "^2.1.1",
+    "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.2"
+    "react-scripts": "3.1.2",
+    "react-toastify": "^5.3.2",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
