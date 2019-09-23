@@ -6,7 +6,7 @@ import Controls from './Controls/Controls';
 import Balance from './Balance/Balance';
 import TransactionHistory from './TransactionHistory/TransactionHistory';
 
-export class Dashboard extends Component {
+class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
