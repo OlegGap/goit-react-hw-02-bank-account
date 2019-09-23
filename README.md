@@ -1,4 +1,4 @@
-Production [https://oleggap.github.io/goit-react-hw-02-bank-account/](here)
+Production [here](https://oleggap.github.io/goit-react-hw-02-bank-account/)
 ## Available Scripts
 
 In the project directory, you can run:
