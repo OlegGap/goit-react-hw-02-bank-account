@@ -10,6 +10,7 @@ const Controls = ({ addTransaction, handleChange, value }) => {
           type="number"
           value={value === 0 ? '' : value}
           onChange={handleChange}
+          placeholder="Enter your amount"
         />
         <button type="button" name="deposit" onClick={addTransaction}>
           Deposit

@@ -18,6 +18,19 @@ class Dashboard extends Component {
     };
   }
 
+  componentDidUpdate() {
+    const {
+      transactions,
+      balance,
+      currentEntered,
+      currentWithdrawals,
+    } = this.state;
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+    localStorage.setItem('balance', JSON.stringify(balance));
+    localStorage.setItem('entered', JSON.stringify(currentEntered));
+    localStorage.setItem('withdrawals', JSON.stringify(currentWithdrawals));
+  }
+
   addTransaction = ({ target }) => {
     const { currentInput } = this.state;
     if (currentInput === 0) {
@@ -67,6 +80,19 @@ class Dashboard extends Component {
     const value = Number(target.value);
     this.setState({ currentInput: value });
   };
+
+  componentDidMount() {
+    const persistedTransactions = localStorage.getItem('transactions');
+
+    if (persistedTransactions) {
+      this.setState({
+        transactions: JSON.parse(persistedTransactions),
+        balance: JSON.parse(localStorage.getItem('balance')),
+        currentEntered: JSON.parse(localStorage.getItem('entered')),
+        currentWithdrawals: JSON.parse(localStorage.getItem('withdrawals')),
+      });
+    }
+  }
 
   render() {
     const {
