@@ -18,6 +18,19 @@ class Dashboard extends Component {
     };
   }
 
+  componentDidMount() {
+    const persistedTransactions = localStorage.getItem('transactions');
+
+    if (persistedTransactions) {
+      this.setState({
+        transactions: JSON.parse(persistedTransactions),
+        balance: JSON.parse(localStorage.getItem('balance')),
+        currentEntered: JSON.parse(localStorage.getItem('entered')),
+        currentWithdrawals: JSON.parse(localStorage.getItem('withdrawals')),
+      });
+    }
+  }
+
   componentDidUpdate() {
     const {
       transactions,
@@ -57,16 +70,16 @@ class Dashboard extends Component {
 
       if (transaction.type === 'withdraw') {
         this.setState(prevState => ({
-          currentWithdrawals: (prevState.currentWithdrawals += currentInput),
-          balance: (prevState.balance -= currentInput),
+          currentWithdrawals: prevState.currentWithdrawals + currentInput,
+          balance: prevState.balance - currentInput,
         }));
         toast.success(`Успешно виведено ${currentInput}$!`, {
           position: toast.POSITION.BOTTOM_LEFT,
         });
       } else {
         this.setState(prevState => ({
-          currentEntered: (prevState.currentEntered += currentInput),
-          balance: (prevState.balance += currentInput),
+          currentEntered: prevState.currentEntered + currentInput,
+          balance: prevState.balance + currentInput,
         }));
         toast.success(`Депозит успешно добавден!`, {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -80,19 +93,6 @@ class Dashboard extends Component {
     const value = Number(target.value);
     this.setState({ currentInput: value });
   };
-
-  componentDidMount() {
-    const persistedTransactions = localStorage.getItem('transactions');
-
-    if (persistedTransactions) {
-      this.setState({
-        transactions: JSON.parse(persistedTransactions),
-        balance: JSON.parse(localStorage.getItem('balance')),
-        currentEntered: JSON.parse(localStorage.getItem('entered')),
-        currentWithdrawals: JSON.parse(localStorage.getItem('withdrawals')),
-      });
-    }
-  }
 
   render() {
     const {
