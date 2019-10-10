@@ -65,7 +65,7 @@ class Dashboard extends Component {
         date: new Date().toLocaleString(),
       };
       this.setState(prevState => ({
-        transactions: [transaction, ...prevState.transactions],
+        transactions: [...prevState.transactions, transaction],
       }));
 
       if (transaction.type === 'withdraw') {
