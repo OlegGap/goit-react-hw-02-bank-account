@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './balance.module.scss';
 
-const Balance = ({ withdrawals, enterd, balance }) => {
-  return (
-    <section className={styles.balance}>
-      <span>⬆{withdrawals}$</span>
-      <span>⬇{enterd}$</span>
-      <span>Balance: {balance}$</span>
-    </section>
-  );
-};
+const Balance = ({ withdrawals, enterd, balance }) => (
+  <section className={styles.balance}>
+    <span>⬆{withdrawals}$</span>
+    <span>⬇{enterd}$</span>
+    <span>Balance: {balance}$</span>
+  </section>
+);
 
 Balance.defaultProps = {
   withdrawals: 0,
