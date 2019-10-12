@@ -25,6 +25,7 @@
     "jest": true
   },
   "rules": {
+    "import/extensions": 0,
     "no-console": 1,
     "linebreak-style": ["error", "unix"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

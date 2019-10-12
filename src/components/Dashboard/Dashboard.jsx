@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Controls from './Controls/Controls';
 import Balance from './Balance/Balance';
 import TransactionHistory from './TransactionHistory/TransactionHistory';
+import checkCorrectInput from '../../utils/checkCorrectInput.js';
 
 class Dashboard extends Component {
   constructor() {
@@ -18,46 +19,10 @@ class Dashboard extends Component {
     };
   }
 
-  componentDidMount() {
-    const persistedTransactions = localStorage.getItem('transactions');
-
-    if (persistedTransactions) {
-      this.setState({
-        transactions: JSON.parse(persistedTransactions),
-        balance: JSON.parse(localStorage.getItem('balance')),
-        currentEntered: JSON.parse(localStorage.getItem('entered')),
-        currentWithdrawals: JSON.parse(localStorage.getItem('withdrawals')),
-      });
-    }
-  }
-
-  componentDidUpdate() {
-    const {
-      transactions,
-      balance,
-      currentEntered,
-      currentWithdrawals,
-    } = this.state;
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-    localStorage.setItem('balance', JSON.stringify(balance));
-    localStorage.setItem('entered', JSON.stringify(currentEntered));
-    localStorage.setItem('withdrawals', JSON.stringify(currentWithdrawals));
-  }
-
   addTransaction = ({ target }) => {
     const { currentInput } = this.state;
-    if (currentInput === 0) {
-      toast.warn('Введите сумму для проведения операции!', {
-        position: toast.POSITION.BOTTOM_LEFT,
-      });
-    } else if (
-      currentInput > this.state.balance &&
-      target.name === 'withdraw'
-    ) {
-      toast.error('На счету недостаточно средств для проведения операции!', {
-        position: toast.POSITION.BOTTOM_LEFT,
-      });
-    } else {
+
+    if (checkCorrectInput(currentInput, target.name, this.state.balance)) {
       const transaction = {
         id: uuidv4(),
         type: target.name,
