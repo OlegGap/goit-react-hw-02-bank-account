@@ -8,20 +8,13 @@ import TransactionHistory from './TransactionHistory/TransactionHistory';
 import checkCorrectInput from '../../utils/checkCorrectInput.js';
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      transactions: [],
-      balance: 0,
-      currentInput: 0,
-      currentEntered: 0,
-      currentWithdrawals: 0,
-    };
-  }
+  state = {
+    transactions: [],
+  };
 
   addTransaction = ({ target }) => {
-    const { currentInput } = this.state;
-
+    const currentInput = Number(target.parentNode.querySelector('input').value);
+    target.parentNode.reset();
     if (checkCorrectInput(currentInput, target.name, this.state.balance)) {
       const transaction = {
         id: uuidv4(),
@@ -34,54 +27,26 @@ class Dashboard extends Component {
       }));
 
       if (transaction.type === 'withdraw') {
-        this.setState(prevState => ({
-          currentWithdrawals: prevState.currentWithdrawals + currentInput,
-          balance: prevState.balance - currentInput,
-        }));
         toast.success(`Успешно виведено ${currentInput}$!`, {
           position: toast.POSITION.BOTTOM_LEFT,
         });
       } else {
-        this.setState(prevState => ({
-          currentEntered: prevState.currentEntered + currentInput,
-          balance: prevState.balance + currentInput,
-        }));
         toast.success(`Депозит успешно добавден!`, {
           position: toast.POSITION.BOTTOM_LEFT,
         });
       }
     }
-    this.setState({ currentInput: 0 });
-  };
-
-  handleChange = ({ target }) => {
-    const value = Number(target.value);
-    this.setState({ currentInput: value });
   };
 
   render() {
-    const {
-      transactions,
-      balance,
-      currentWithdrawals,
-      currentEntered,
-      currentInput,
-    } = this.state;
+    const { transactions } = this.state;
     return (
-      <>
-        <Controls
-          addTransaction={this.addTransaction}
-          handleChange={this.handleChange}
-          value={currentInput}
-        />
-        <Balance
-          withdrawals={currentWithdrawals}
-          enterd={currentEntered}
-          balance={balance}
-        />
+      <div>
+        <Controls addTransaction={this.addTransaction} />
+        <Balance transactions={transactions} />
         <TransactionHistory transactions={transactions} />
         <ToastContainer />
-      </>
+      </div>
     );
   }
 }
