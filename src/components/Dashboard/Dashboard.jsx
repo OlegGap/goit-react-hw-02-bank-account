@@ -12,6 +12,21 @@ class Dashboard extends Component {
     transactions: [],
   };
 
+  componentDidMount() {
+    const persistedTransactions = localStorage.getItem('transactions');
+
+    if (persistedTransactions) {
+      this.setState({
+        transactions: JSON.parse(persistedTransactions),
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const { transactions } = this.state;
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+  }
+
   addTransaction = ({ target }) => {
     const currentInput = Number(target.parentNode.querySelector('input').value);
     target.parentNode.reset();
