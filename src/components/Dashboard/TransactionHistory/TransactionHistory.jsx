@@ -19,7 +19,7 @@ const Balance = ({ transactions }) => (
           <td>{date}</td>
         </tr>
       ))}
-      {transactions.length === 0 && (
+      {!transactions.length && (
         <tr>
           <td>Здесь будет </td>
           <td>Ваша история</td>
